@@ -44,11 +44,11 @@ def get_width_sf_Hgg_kappa(p_kappabar_c, p_kappabar_ud):
     return(width_sf_Hgg)
 
 # returns scale-factor of Higgs total decay width, wrt to the SM value
-def get_width_sf_H_kapp(p_kappabar_c, p_kappabar_ud):
+def get_width_sf_H_kappa(p_kappabar_c, p_kappabar_ud):
     b_quad = 0.581
     width_sf_H = b_quad + 0.215 + 0.063 + 0.026 + 0.0015 + 0.0004 + 0.00022 + \
-         0.082*width_sf_Hgg_kappa(p_kappabar_c, p_kappabar_ud) + \
-         0.0023*width_sf_Hyy_kappa(p_kappabar_c, p_kappabar_ud) + \
+         0.082*get_width_sf_Hgg_kappa(p_kappabar_c, p_kappabar_ud) + \
+         0.0023*get_width_sf_Hyy_kappa(p_kappabar_c, p_kappabar_ud) + \
          b_quad*p_kappabar_c*p_kappabar_c + 2*(b_quad*p_kappabar_ud*p_kappabar_ud)
     return(width_sf_H)
 
@@ -56,7 +56,7 @@ def get_width_sf_H_kapp(p_kappabar_c, p_kappabar_ud):
 def get_br_Hyy_kappa(p_kappabar_c, p_kappabar_ud):
     width_Hyy_sm = width_Higgs_sm * br_Hyy_sm
     width_Hyy = width_Hyy_sm * get_width_sf_Hyy_kappa(p_kappabar_c, p_kappabar_ud)
-    width_H = width_Higgs_sm * get_width_sf_H_kapp(p_kappabar_c, p_kappabar_ud)
+    width_H = width_Higgs_sm * get_width_sf_H_kappa(p_kappabar_c, p_kappabar_ud)
     return(width_Hyy/width_H)
 
 
