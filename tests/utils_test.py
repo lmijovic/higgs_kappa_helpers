@@ -44,7 +44,27 @@ class utils_test(unittest.TestCase):
     def test_get_x_sf_ggH_kappa(self):
         sf = utils.get_x_sf_ggH_kappa(utils.kappabar_c_sm, utils.kappabar_ud_sm)
         print("test_get_x_sf_ggH_kappa: x-section SM scale-factor", sf)
-        self.assertTrue(math.fabs(sf - 1)< tolerance)      
+        self.assertTrue(math.fabs(sf - 1)< tolerance)
+
+    def test_get_x_ggH_kappa(self):
+        x = utils.get_x_ggH_kappa(utils.kappabar_c_sm, utils.kappabar_ud_sm)
+        print("test_get_x_ggH_kappa: SM ggH x-section", x)
+        x_ref = utils.x_ggH_sm
+        self.assertTrue(math.fabs(x - x_ref)/x_ref< tolerance)
+
+
+    def test_get_x_uuddH_kappa(self):
+        # SM x-section is << ggF x-section 
+        x = utils.get_x_uuddH_kappa(utils.kappabar_ud_sm)
+        x_ref = utils.x_ggH_sm
+        self.assertTrue(x/x_ref< 0.05)
+
+    def test_get_x_ccH_kappa(self):
+        # SM x-section is << ggF x-section 
+        x = utils.get_x_ccH_kappa(utils.kappabar_c_sm)
+        x_ref = utils.x_ggH_sm
+        self.assertTrue(x/x_ref< 0.05)
+
 
 if __name__ == '__main__':
     unittest.main()

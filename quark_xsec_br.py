@@ -1,20 +1,16 @@
-import utils as utils 
+'''
+calculate xsec and BR for modified charm and u/d quark couplings
+'''
 
-# ======================================================================
-# main
-# ======================================================================
 
-# from Run2 x-section paper 
-# x_bbH_13 = 0.53 # pb
-x_ccH_13 = 1.64 # pb ; @ kappabar_c =1
-x_ccH = x_ccH_13 * utils.x_sf_13p6_13
+import utils as utils
 
-# factor from MadGraph , @ NLO 
-#Total cross-section: 7.534e+05 +- 1.6e+03 pb uudd (kappa_bar = 100)
-#Total cross-section:      5.976e+04 +- 1.6e+02 pb cc (kappa_bar = 100)
-x_sf_uudd_cc = 7.534e+05/5.976e+04 # u and d couplings varied simultaneously 
+#=======================================================================
+# 
+#=======================================================================
 
-x_uuddH = x_ccH * x_sf_uudd_cc
+
+
 
 print("incusive x-sections at kappa_bar = 1: ")
 print("x_uuddH: ", x_uuddH, " [pb]")

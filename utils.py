@@ -18,11 +18,27 @@ kappabar_c_sm = kappa_c_sm/mb_mc
 # in SM, up and down are negligible 
 kappabar_ud_sm = 0
 
+# charm quarks BSM couplings: y_c = y_b (kappabar_c = 1)
+# from Run2 x-section paper 
+# x_bbH_13 = 0.53 # pb
+x_ccH_13 = 1.64 # pb ; @ kappabar_c =1
+x_ccH = x_ccH_13 * x_sf_13p6_13
+
+# light quark BSM couplings: y_u = y_d = y_b (kappabar_ud = 1)
+# get ud to c factor from MadGraph , @ NLO 
+#Total cross-section: 7.534e+05 +- 1.6e+03 pb uudd (kappa_bar = 100)
+#Total cross-section:      5.976e+04 +- 1.6e+02 pb cc (kappa_bar = 100)
+x_sf_uudd_cc = 7.534e+05/5.976e+04 # u and d couplings varied simultaneously 
+x_uuddH = x_ccH * x_sf_uudd_cc # pb ; @ kappabar_ud =1
+
 # ======================================================================
 # branching ratio helper functions
 # ======================================================================
 
+# For all these, see: 
 # https://cds.cern.ch/record/2789544 , Ch 6, Tab 6
+
+
 # returns scale-factor of H->yy width wrt to the SM value  
 def get_width_sf_Hyy_kappa(p_kappabar_c, p_kappabar_ud):
     # from https://cds.cern.ch/record/2789544 ,Ch6 Tab 6:
@@ -64,9 +80,25 @@ def get_br_Hyy_kappa(p_kappabar_c, p_kappabar_ud):
 # cross-section helper functions
 # ======================================================================
 
+# https://cds.cern.ch/record/2789544 , Ch 6, Tab 6
 def get_x_sf_ggH_kappa(p_kappabar_c, p_kappabar_ud):
     b_quad = 0.002
     bint = -0.038
     sf = 1.04 + b_quad + bint- 0.005* p_kappabar_c*mb_mc + b_quad*p_kappabar_c*p_kappabar_c + \
         2*(bint*p_kappabar_ud +  b_quad*p_kappabar_ud*p_kappabar_ud)
     return(sf)
+
+# ggF x-section
+def get_x_ggH_kappa(p_kappabar_c, p_kappabar_ud):
+    sf = get_x_sf_ggH_kappa(p_kappabar_c, p_kappabar_ud)
+    x = x_ggH_sm*sf
+    return(x)
+
+# quark annihilation x-sections 
+def get_x_uuddH_kappa(p_kappabar_ud):
+    x = x_uuddH*p_kappabar_ud*p_kappabar_ud
+    return(x)
+
+def get_x_ccH_kappa(p_kappabar_c):
+    x = x_ccH*p_kappabar_c*p_kappabar_c
+    return(x)
